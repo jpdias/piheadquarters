@@ -1,0 +1,64 @@
+version: "3.3"
+services:
+  influxdb:
+    image: easypi/influxdb-arm
+    ports:
+     - "8083:8083"
+     - "8086:8086"
+    volumes:
+     - ./influxdb_data:/var/lib/influxdb
+     - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+    restart: always
+  nodered:
+    build: nodered
+    ports:
+    - "1880:1880"
+    volumes:
+    - ./nodered_data:/root/.node-red
+    - /dev/input:/dev/input
+    privileged: yes
+    restart: always
+    user: root
+    links:
+    - influxdb
+    - mqtt
+  telegraf:
+    image: easypi/telegraf-arm
+    ports:
+    - "8125:8125"
+    - "8092:8092"
+    - "8094:8094"
+    depends_on:
+    - influxdb
+    links:
+    - influxdb
+    - mqtt
+    restart: always
+    volumes:
+    - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+    - /var/run:/var/run
+    privileged: true
+  grafana:
+    image: easypi/grafana-arm
+    ports:
+     - "3000:3000"
+    volumes:
+     - ./grafana_data:/var/lib/grafana
+     - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    links:
+     - influxdb
+    depends_on:
+     - influxdb
+    restart: always
+  mqtt:
+    image: easypi/mosquitto-arm
+    volumes:
+      - ./mosquitto/config:/mqtt/config:ro
+      - ./mosquitto_data/data:/mqtt/data
+      - ./mosquitto_data/log:/mqtt/log
+    ports:
+      - "1883:1883"
+      - "1884:1884"
+      - "9001:9001"
+    restart: always
+
