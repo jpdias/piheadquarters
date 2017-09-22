@@ -121,18 +121,30 @@ void reconnect()
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
+  Serial.print("Message arrived on topic: ");
   Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0;i<length;i++) {
-   char receivedChar = (char)payload[i];
-   Serial.print(receivedChar);
-   if (receivedChar == '0')
-   // ESP8266 Huzzah outputs are "reversed"
-   digitalWrite(ledPin, HIGH);
-   if (receivedChar == '1')
-    digitalWrite(ledPin, LOW);
-   }
+  Serial.print(". Message: ");
+  String messageTemp;
+  
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+  Serial.println();
+
+   if(topic==actuator_led_status){
+    Serial.print("Led status: ");
+    if(messageTemp == "on"){
+      digitalWrite(LEDPIN, HIGH);
+      Serial.print("Led On");
+    }
+    else if(messageTemp == "off"){
+      digitalWrite(LEDPIN, LOW);
+      Serial.print("Led Off");
+    }
+}
+
+
    Serial.println();
  }
 

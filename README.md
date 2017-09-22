@@ -23,5 +23,11 @@ A very common approach that has been applied is the use of gateways for control 
 ### Hardware
 
 - ESP8266/32 based dev board (Node-MCU ESP-12E is used in this WS)
+    - 1x LED
+    - 1x DHT11 or DHT22 (temp/humidity sensor)
+    - Jump Cables
+    - 1x Breadboard
+    - 330 Ω resistor
+    - 4700 Ω resistor
 - Raspberry Pi (any version, v3 is used in this WS)
 - Router with Internet connectivity required for setup (in this talk a modified ZSUN with OpenWRT is used)
