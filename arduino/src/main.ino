@@ -3,8 +3,8 @@
 
 #include "DHT.h"
 
-#define DHTPIN 12 // what digital pin we're connected to NodeMCU (D6)
-#define LEDPIN D0
+#define DHTPIN D3 // what digital pin we're connected to NodeMCU (D6)
+#define LEDPIN D4
 
 #define DHTTYPE DHT22
 
@@ -23,10 +23,10 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
-#define wifi_ssid "tituswifi"
-#define wifi_password "password"
+#define wifi_ssid "pirate-net"
+#define wifi_password "paranhos"
 
-#define mqtt_server "192.168.0.104"
+#define mqtt_server "192.168.1.249"
 //#define mqtt_user "user"
 //#define mqtt_password "password"
 
@@ -43,6 +43,10 @@ void setup()
   Serial.begin(115200);
   dht.begin();
   setup_wifi();
+
+  pinMode(LEDPIN, OUTPUT);
+  digitalWrite(LEDPIN, LOW);
+
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
 }
@@ -127,12 +131,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   String messageTemp;
   
   for (int i = 0; i < length; i++) {
-    Serial.print((char)message[i]);
-    messageTemp += (char)message[i];
+    Serial.print((char)payload[i]);
+    messageTemp += (char)payload[i];
   }
-  Serial.println();
-
-   if(topic==actuator_led_status){
+  Serial.println(topic == actuator_led_status);
+  
+   if(topic.equals(actuator_led_status)) {
     Serial.print("Led status: ");
     if(messageTemp == "on"){
       digitalWrite(LEDPIN, HIGH);
@@ -142,11 +146,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
       digitalWrite(LEDPIN, LOW);
       Serial.print("Led Off");
     }
+  }
+  Serial.println();
 }
-
-
-   Serial.println();
- }
 
 void loop()
 {
@@ -158,9 +160,9 @@ void loop()
   client.loop();
 
   // Wait a few seconds between measurements.
-  delay(2000);
+  delay(5000);
 
-  // Reading temperature or humidity takes about 250 milliseconds!
+  // Reading temperature or humidity takes about 550 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
