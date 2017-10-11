@@ -1,8 +1,8 @@
 # PiHeadquarters
 
-PiHeadquarters or How to Take Control of your House with Raspberry Pi and Docker :whale:
-
 #### _Workshop/Talk for [Pixels.Camp 2017 Edition](http://pixels.camp/)_
+
+_PiHeadquarters or How to Take Control of your House with Raspberry Pi and Docker_
 
 - [Slides](https://speakerdeck.com/jpdias/piheadquarters-or-how-to-take-control-of-your-house-with-raspberry-pi-and-docker)
 
