@@ -6,6 +6,13 @@ PiHeadquarters or How to Take Control of your House with Raspberry Pi and Docker
 
 - [Slides](https://speakerdeck.com/jpdias/piheadquarters-or-how-to-take-control-of-your-house-with-raspberry-pi-and-docker)
 
+#### _Seminar for the students of the 5th Year of the Integrated Master Degree on Informatics and Computing Engineering_
+##### _@ Faculty of Engineering, University of Porto._
+
+_How to Kill Your Privacy and IoT your home along the way_
+
+- [Slides](https://speakerdeck.com/jpdias/how-to-kill-your-privacy-and-iot-your-home-along-the-way)
+
 ## Description
 
 We're living on the verge of ubiquitous computing, where _computing is made to appear everywhere and anywhere_. As such, we're dealing with this now, by the means of the Internet of Things. Empowered by the ever-cheaper devices with internet connectivity such as the ESP8266 (that costs under 4$) we're able to build our very _own_ smart homes. However, some questions arise on how to deal with all the sensing and actuating capabilities of such devices as well as all the privacy and security issues that are on the table. 
